@@ -1,0 +1,1787 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- EDITE AQUI: título que aparece na aba do navegador -->
+  <title>Gabriel & Emilly — Nosso primeiro mês de noivado</title>
+
+  <meta
+    name="description"
+    content="Uma pequena surpresa para celebrar o primeiro mês de noivado de Gabriel e Emilly."
+  />
+
+  <style>
+    /* =========================================================
+       PERSONALIZAÇÃO RÁPIDA
+       Troque as cores abaixo para alterar todo o visual do site.
+       ========================================================= */
+    :root {
+      --bg: #fffaf7;
+      --bg-soft: #f9ece8;
+      --paper: rgba(255, 255, 255, 0.76);
+      --paper-strong: #ffffff;
+      --text: #3f2f31;
+      --muted: #765f62;
+      --primary: #b85c6d;
+      --primary-dark: #8e3d4d;
+      --accent: #d7a55a;
+      --line: rgba(184, 92, 109, 0.22);
+      --shadow: 0 24px 70px rgba(96, 48, 59, 0.16);
+      --radius-lg: 32px;
+      --radius-md: 22px;
+      --radius-sm: 14px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(215, 165, 90, 0.16), transparent 28rem),
+        radial-gradient(circle at 85% 20%, rgba(184, 92, 109, 0.16), transparent 30rem),
+        linear-gradient(180deg, #fffaf7 0%, #fdf4f0 50%, #fffaf7 100%);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(184, 92, 109, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184, 92, 109, 0.08) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max-width));
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 96px 0;
+      position: relative;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 38px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1,
+    h2,
+    h3,
+    .serif {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: clamp(2.15rem, 5vw, 4.15rem);
+      letter-spacing: -0.045em;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.14rem);
+    }
+
+    .glass {
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Navegação */
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 50;
+      width: min(calc(100% - 28px), 980px);
+      transform: translateX(-50%);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 999px;
+      background: rgba(255, 250, 247, 0.74);
+      box-shadow: 0 14px 40px rgba(83, 39, 49, 0.11);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 58px;
+      padding: 8px 10px 8px 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 8px 20px rgba(142, 61, 77, 0.28);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 9px 13px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-dark);
+      background: rgba(184, 92, 109, 0.09);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: 100svh;
+      place-items: center;
+      padding: 120px 0 70px;
+      isolation: isolate;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-small {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .hero-small span {
+      width: 42px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      font-size: clamp(3.25rem, 8vw, 7.5rem);
+      letter-spacing: -0.065em;
+    }
+
+    .hero h1 em {
+      display: block;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .hero-text {
+      max-width: 650px;
+      margin: 26px 0 34px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.24rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 21px;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 800;
+      transition:
+        transform 0.24s ease,
+        box-shadow 0.24s ease,
+        background 0.24s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 16px 32px rgba(142, 61, 77, 0.24);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 20px 40px rgba(142, 61, 77, 0.32);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      color: var(--primary-dark);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 610px;
+    }
+
+    .photo-frame {
+      position: absolute;
+      overflow: hidden;
+      border: 9px solid rgba(255, 255, 255, 0.9);
+      border-radius: 26px;
+      background: linear-gradient(145deg, #ead7d0, #f9efeb);
+      box-shadow: var(--shadow);
+    }
+
+    .photo-frame img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .photo-frame:hover img {
+      transform: scale(1.04);
+    }
+
+    .photo-main {
+      top: 0;
+      right: 2%;
+      width: 76%;
+      height: 78%;
+      transform: rotate(2deg);
+    }
+
+    .photo-small {
+      left: 0;
+      bottom: 5%;
+      width: 46%;
+      height: 42%;
+      transform: rotate(-5deg);
+    }
+
+    .photo-label {
+      position: absolute;
+      right: 2%;
+      bottom: 2%;
+      width: 56%;
+      padding: 18px 20px;
+      border-radius: 18px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 20px 45px rgba(89, 42, 52, 0.15);
+      transform: rotate(1deg);
+    }
+
+    .photo-label strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--primary-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.12rem;
+    }
+
+    .photo-label span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .floating-note {
+      position: absolute;
+      top: 7%;
+      left: -5%;
+      z-index: 4;
+      padding: 14px 17px;
+      border: 1px solid rgba(215, 165, 90, 0.26);
+      border-radius: 18px;
+      color: var(--primary-dark);
+      background: rgba(255, 250, 247, 0.9);
+      box-shadow: 0 14px 30px rgba(90, 43, 53, 0.13);
+      font-size: 0.88rem;
+      font-weight: 800;
+      transform: rotate(-4deg);
+      animation: float 4.8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-10px) rotate(-2deg); }
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transform: translateX(-50%);
+    }
+
+    .scroll-cue::after {
+      content: "";
+      width: 1px;
+      height: 42px;
+      margin-top: 9px;
+      background: linear-gradient(var(--primary), transparent);
+      animation: cue 1.8s ease-in-out infinite;
+    }
+
+    @keyframes cue {
+      0%, 100% { opacity: 0.25; transform: scaleY(0.55); transform-origin: top; }
+      50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    }
+
+    /* Contador */
+    .counter-wrap {
+      position: relative;
+      overflow: hidden;
+      padding: 46px;
+      border-radius: var(--radius-lg);
+    }
+
+    .counter-wrap::before {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      top: -180px;
+      right: -100px;
+      border-radius: 50%;
+      background: rgba(215, 165, 90, 0.16);
+    }
+
+    .counter-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .counter-date {
+      padding: 10px 15px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--primary-dark);
+      background: rgba(255, 255, 255, 0.6);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .counter-item {
+      padding: 28px 15px;
+      border: 1px solid rgba(184, 92, 109, 0.12);
+      border-radius: 22px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .counter-number {
+      display: block;
+      color: var(--primary-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 5vw, 3.9rem);
+      line-height: 1;
+    }
+
+    .counter-label {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* História */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+      gap: 58px;
+    }
+
+    .story-photo {
+      position: relative;
+      min-height: 560px;
+    }
+
+    .story-photo .photo-frame {
+      inset: 0;
+      width: 88%;
+      height: 100%;
+      transform: rotate(-2deg);
+    }
+
+    .quote-card {
+      position: absolute;
+      right: 0;
+      bottom: 44px;
+      width: min(84%, 420px);
+      padding: 26px;
+      border-radius: 20px;
+      background: var(--paper-strong);
+      box-shadow: var(--shadow);
+      transform: rotate(2deg);
+    }
+
+    .quote-card p {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.22rem;
+      line-height: 1.45;
+    }
+
+    .quote-card small {
+      display: block;
+      margin-top: 10px;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .story-copy p + p {
+      margin-top: 18px;
+    }
+
+    .story-copy p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .mini-signature {
+      margin-top: 24px;
+      color: var(--primary-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-style: italic;
+    }
+
+    /* Motivos */
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .reason-card {
+      position: relative;
+      min-height: 230px;
+      overflow: hidden;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.68);
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .reason-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(184, 92, 109, 0.4);
+      box-shadow: 0 22px 50px rgba(89, 42, 52, 0.13);
+    }
+
+    .reason-number {
+      display: inline-grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      margin-bottom: 28px;
+      border-radius: 50%;
+      color: var(--primary-dark);
+      background: var(--bg-soft);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+    }
+
+    .reason-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.45rem;
+    }
+
+    .reason-card p {
+      color: var(--muted);
+    }
+
+    .reason-card::after {
+      content: "♥";
+      position: absolute;
+      right: 18px;
+      bottom: -30px;
+      color: rgba(184, 92, 109, 0.08);
+      font-size: 7rem;
+      line-height: 1;
+      transform: rotate(-12deg);
+    }
+
+    /* Linha do tempo */
+    .timeline {
+      position: relative;
+      width: min(100%, 900px);
+      margin: 20px auto 0;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: linear-gradient(transparent, var(--primary), transparent);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      margin-bottom: 44px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-card {
+      grid-column: 2;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 26px;
+      left: 50%;
+      z-index: 2;
+      width: 18px;
+      height: 18px;
+      border: 5px solid var(--bg);
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 1px rgba(184, 92, 109, 0.3);
+      transform: translateX(-50%);
+    }
+
+    .timeline-card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 18px 42px rgba(83, 39, 49, 0.09);
+    }
+
+    .timeline-date {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .timeline-card h3 {
+      margin-bottom: 7px;
+      font-size: 1.4rem;
+    }
+
+    .timeline-card p {
+      color: var(--muted);
+    }
+
+    /* Galeria */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 90px;
+      gap: 14px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border: 0;
+      border-radius: 20px;
+      cursor: zoom-in;
+      background: #eadad4;
+      box-shadow: 0 16px 36px rgba(89, 42, 52, 0.1);
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 4; }
+    .gallery-item:nth-child(2) { grid-column: span 3; grid-row: span 3; }
+    .gallery-item:nth-child(3) { grid-column: span 4; grid-row: span 5; }
+    .gallery-item:nth-child(4) { grid-column: span 3; grid-row: span 3; }
+    .gallery-item:nth-child(5) { grid-column: span 5; grid-row: span 4; }
+    .gallery-item:nth-child(6) { grid-column: span 4; grid-row: span 2; }
+
+    .gallery-item img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.55s ease, filter 0.55s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.06);
+    }
+
+    .gallery-item span {
+      position: absolute;
+      inset: auto 12px 12px 12px;
+      padding: 9px 12px;
+      border-radius: 13px;
+      color: #fff;
+      background: linear-gradient(90deg, rgba(45, 24, 29, 0.72), rgba(45, 24, 29, 0.22));
+      font-size: 0.84rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: 0.3s ease;
+    }
+
+    .gallery-item:hover span {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Carta */
+    .letter-wrap {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 6vw, 72px);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.84)),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 31px,
+          rgba(184, 92, 109, 0.11) 32px
+        );
+      box-shadow: var(--shadow);
+    }
+
+    .letter-wrap::after {
+      content: "G + E";
+      position: absolute;
+      right: 6%;
+      bottom: 3%;
+      color: rgba(184, 92, 109, 0.07);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(5rem, 14vw, 12rem);
+      line-height: 1;
+      transform: rotate(-7deg);
+    }
+
+    .letter-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      margin-inline: auto;
+    }
+
+    .letter-content h2 {
+      margin-bottom: 26px;
+      color: var(--primary-dark);
+    }
+
+    .letter-content p {
+      color: #5f4b4f;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.08rem, 2vw, 1.28rem);
+      line-height: 1.85;
+    }
+
+    .letter-content p + p {
+      margin-top: 20px;
+    }
+
+    .signature {
+      margin-top: 34px;
+      color: var(--primary-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.55rem;
+      font-style: italic;
+    }
+
+    /* Final */
+    .finale {
+      padding: 50px 0 110px;
+      text-align: center;
+    }
+
+    .finale-box {
+      padding: 56px 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .finale h2 {
+      margin-bottom: 12px;
+      font-size: clamp(2.1rem, 5vw, 4.2rem);
+    }
+
+    .finale p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .heart-button {
+      display: inline-grid;
+      width: 72px;
+      height: 72px;
+      place-items: center;
+      margin-top: 28px;
+      border: 0;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 18px 35px rgba(142, 61, 77, 0.28);
+      font-size: 1.8rem;
+      transition: 0.3s ease;
+    }
+
+    .heart-button:hover {
+      transform: scale(1.08) rotate(-5deg);
+    }
+
+    footer {
+      padding: 24px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    /* Modal da galeria */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      visibility: hidden;
+      background: rgba(34, 20, 24, 0.82);
+      opacity: 0;
+      backdrop-filter: blur(14px);
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .modal.open {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .modal img {
+      width: auto;
+      max-width: min(96vw, 1100px);
+      max-height: 84vh;
+      border: 8px solid rgba(255, 255, 255, 0.85);
+      border-radius: 22px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      object-fit: contain;
+      transform: scale(0.96);
+      transition: transform 0.25s ease;
+    }
+
+    .modal.open img {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      font-size: 1.4rem;
+    }
+
+    /* Corações gerados por JavaScript */
+    .floating-heart {
+      position: fixed;
+      z-index: 200;
+      pointer-events: none;
+      color: var(--primary);
+      animation: heartBurst 1.8s ease-out forwards;
+      filter: drop-shadow(0 5px 8px rgba(142, 61, 77, 0.18));
+    }
+
+    @keyframes heartBurst {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.5) rotate(0deg);
+      }
+      18% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(1.35) rotate(var(--r));
+      }
+    }
+
+    /* Animações de entrada */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity 0.75s ease,
+        transform 0.75s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.08s; }
+    .delay-2 { transition-delay: 0.16s; }
+    .delay-3 { transition-delay: 0.24s; }
+
+    /* Fallback visual quando a foto ainda não foi adicionada */
+    .image-placeholder {
+      display: grid;
+      height: 100%;
+      place-items: center;
+      padding: 24px;
+      color: var(--primary-dark);
+      text-align: center;
+      background:
+        radial-gradient(circle at top left, rgba(215, 165, 90, 0.28), transparent 45%),
+        linear-gradient(145deg, #f2deda, #fff7f3);
+      font-weight: 800;
+    }
+
+    .image-placeholder small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    @media (max-width: 920px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-copy {
+        padding-top: 40px;
+      }
+
+      .hero-card {
+        min-height: 560px;
+      }
+
+      .story-photo {
+        min-height: 500px;
+      }
+
+      .reasons-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .section {
+        padding: 72px 0;
+      }
+
+      .nav {
+        top: 10px;
+      }
+
+      .hero {
+        padding-top: 100px;
+      }
+
+      .hero-card {
+        min-height: 480px;
+      }
+
+      .photo-main {
+        width: 78%;
+        height: 72%;
+      }
+
+      .photo-small {
+        width: 50%;
+        height: 38%;
+      }
+
+      .photo-label {
+        width: 68%;
+      }
+
+      .counter-wrap {
+        padding: 28px 18px;
+      }
+
+      .counter-head {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .counter-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .reasons-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        left: 10px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-left: 34px;
+      }
+
+      .timeline-item:nth-child(even) .timeline-card {
+        grid-column: 1;
+      }
+
+      .timeline-dot {
+        left: 10px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 185px;
+      }
+
+      .gallery-item,
+      .gallery-item:nth-child(n) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      .gallery-item:first-child,
+      .gallery-item:nth-child(3) {
+        grid-column: span 2;
+      }
+
+      .story-photo .photo-frame {
+        width: 95%;
+      }
+
+      .quote-card {
+        right: 0;
+        width: 88%;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .hero h1 {
+        font-size: 3.2rem;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-card {
+        min-height: 430px;
+      }
+
+      .floating-note {
+        left: 0;
+      }
+
+      .photo-label {
+        width: 76%;
+        padding: 14px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item,
+      .gallery-item:nth-child(n),
+      .gallery-item:first-child,
+      .gallery-item:nth-child(3) {
+        grid-column: span 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =========================================================
+       COMO ADICIONAR AS FOTOS
+       1. Crie uma pasta chamada "fotos" no seu repositório.
+       2. Coloque nela os arquivos:
+          foto1.jpg, foto2.jpg, foto3.jpg, foto4.jpg,
+          foto5.jpg, foto6.jpg, foto7.jpg, foto8.jpg, foto9.jpg
+       3. Você também pode mudar os nomes diretamente no atributo src.
+       ========================================================= -->
+
+  <!-- =========================================================
+       MÚSICA
+       Coloque um arquivo chamado "musica.mp3" na mesma pasta do index.html.
+       O navegador só tocará depois que a pessoa clicar no botão.
+       ========================================================= -->
+  <audio id="music" loop preload="metadata">
+    <source src="musica.mp3" type="audio/mpeg" />
+  </audio>
+
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav-inner">
+      <a class="brand" href="#inicio" aria-label="Voltar ao início">
+        <span class="brand-mark">♥</span>
+        <span>Gabriel & Emilly</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#historia">Nossa história</a></li>
+        <li><a href="#motivos">Motivos</a></li>
+        <li><a href="#galeria">Fotos</a></li>
+        <li><a href="#carta">Carta</a></li>
+      </ul>
+
+      <button class="btn btn-secondary" id="musicButton" type="button" aria-label="Tocar música">
+        <span id="musicIcon">♪</span>
+        <span id="musicText">Nossa música</span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- TELA INICIAL -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="hero-small reveal">
+            <span></span>
+            Um mês do nosso “sim”
+          </div>
+
+          <!-- EDITE AQUI: título principal -->
+          <h1 class="reveal delay-1">
+            Gabriel
+            <em>& Emilly</em>
+          </h1>
+
+          <!-- EDITE AQUI: texto de abertura -->
+          <p class="hero-text reveal delay-2">
+            Há um mês começamos oficialmente um novo capítulo da nossa história.
+            Este cantinho é só uma pequena forma de guardar um pouco do que sinto
+            por você e de celebrar tudo o que ainda vamos viver juntos.
+          </p>
+
+          <div class="hero-actions reveal delay-3">
+            <a class="btn btn-primary" href="#contador">
+              Ver nossa história
+              <span aria-hidden="true">↓</span>
+            </a>
+
+            <button class="btn btn-secondary" id="surpriseButton" type="button">
+              Uma surpresa para você
+              <span aria-hidden="true">♥</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-card reveal delay-2">
+          <div class="floating-note">Meu lugar favorito é com você.</div>
+
+          <figure class="photo-frame photo-main">
+            <img
+              src="fotos/foto1.jpg"
+              alt="Foto de Gabriel e Emilly"
+              data-placeholder="Coloque aqui uma foto especial de vocês"
+            />
+          </figure>
+
+          <figure class="photo-frame photo-small">
+            <img
+              src="fotos/foto2.jpg"
+              alt="Outro momento de Gabriel e Emilly"
+              data-placeholder="Coloque aqui outra foto de vocês"
+            />
+          </figure>
+
+          <div class="photo-label">
+            <strong>Nosso primeiro mês</strong>
+            <!-- EDITE AQUI: data do noivado -->
+            <span>Desde 20 de junho de 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <a class="scroll-cue" href="#contador">Role para descobrir</a>
+    </section>
+
+    <!-- CONTADOR -->
+    <section class="section" id="contador">
+      <div class="container">
+        <div class="counter-wrap glass reveal">
+          <div class="counter-head">
+            <div>
+              <span class="eyebrow">O tempo ao seu lado</span>
+              <h2>Cada segundo virou parte da nossa história.</h2>
+            </div>
+
+            <!-- EDITE AQUI: data exibida -->
+            <div class="counter-date">Noivos desde 20/06/2026</div>
+          </div>
+
+          <div class="counter-grid" aria-live="polite">
+            <div class="counter-item">
+              <span class="counter-number" id="days">0</span>
+              <span class="counter-label">dias</span>
+            </div>
+
+            <div class="counter-item">
+              <span class="counter-number" id="hours">0</span>
+              <span class="counter-label">horas</span>
+            </div>
+
+            <div class="counter-item">
+              <span class="counter-number" id="minutes">0</span>
+              <span class="counter-label">minutos</span>
+            </div>
+
+            <div class="counter-item">
+              <span class="counter-number" id="seconds">0</span>
+              <span class="counter-label">segundos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSSA HISTÓRIA -->
+    <section class="section" id="historia">
+      <div class="container story-grid">
+        <div class="story-photo reveal">
+          <figure class="photo-frame">
+            <img
+              src="fotos/foto3.jpg"
+              alt="Momento marcante do casal"
+              data-placeholder="Escolha uma foto marcante de vocês"
+            />
+          </figure>
+
+          <!-- EDITE AQUI: pequena frase sobre vocês -->
+          <blockquote class="quote-card">
+            <p>“Entre tantos caminhos possíveis, o meu favorito foi aquele que me trouxe até você.”</p>
+            <small>— Para a minha Emilly</small>
+          </blockquote>
+        </div>
+
+        <div class="story-copy reveal delay-1">
+          <span class="eyebrow">O que eu queria te dizer</span>
+          <h2>Um mês pode parecer pouco. Com você, já significa muito.</h2>
+
+          <!-- EDITE AQUI: os parágrafos abaixo -->
+          <p>
+            Quando penso em nós, não penso apenas nos momentos grandes. Penso nas
+            conversas, nas brincadeiras, nos pequenos cuidados, nos dias comuns e
+            em como tudo parece ganhar mais sentido quando você está por perto.
+          </p>
+
+          <p>
+            Este primeiro mês de noivado representa muito mais do que uma data.
+            Ele representa a certeza de que quero continuar construindo uma vida
+            com você, aprendendo, crescendo e comemorando cada conquista lado a lado.
+          </p>
+
+          <p>
+            Obrigado por ser meu amor, minha parceira e a pessoa com quem quero
+            compartilhar os meus planos mais bonitos.
+          </p>
+
+          <div class="mini-signature">Com amor, Gabriel.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOTIVOS -->
+    <section class="section" id="motivos">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow">Só alguns motivos</span>
+          <h2>Coisas que fazem eu te escolher todos os dias.</h2>
+          <p class="lead">
+            Você pode trocar estes textos por lembranças, características da Emilly
+            ou momentos que sejam especiais para vocês.
+          </p>
+        </div>
+
+        <div class="reasons-grid">
+          <!-- EDITE AQUI: os seis cartões -->
+          <article class="reason-card reveal">
+            <span class="reason-number">01</span>
+            <h3>Seu jeito</h3>
+            <p>
+              Eu amo a forma única como você enxerga o mundo e como consegue deixar
+              até os momentos simples mais especiais.
+            </p>
+          </article>
+
+          <article class="reason-card reveal delay-1">
+            <span class="reason-number">02</span>
+            <h3>Seu sorriso</h3>
+            <p>
+              É um daqueles detalhes que mudam completamente o meu dia e sempre me
+              lembram de como sou feliz por ter você.
+            </p>
+          </article>
+
+          <article class="reason-card reveal delay-2">
+            <span class="reason-number">03</span>
+            <h3>Nossa parceria</h3>
+            <p>
+              Gosto de saber que não somos apenas um casal: somos uma dupla, um time
+              e um porto seguro um para o outro.
+            </p>
+          </article>
+
+          <article class="reason-card reveal">
+            <span class="reason-number">04</span>
+            <h3>Nossas conversas</h3>
+            <p>
+              Das conversas mais sérias às maiores bobagens, estar com você nunca
+              deixa de ser uma das melhores partes do meu dia.
+            </p>
+          </article>
+
+          <article class="reason-card reveal delay-1">
+            <span class="reason-number">05</span>
+            <h3>Os nossos planos</h3>
+            <p>
+              Eu amo imaginar tudo o que ainda vamos construir: nossa casa, nossas
+              conquistas, viagens e uma vida cheia de histórias.
+            </p>
+          </article>
+
+          <article class="reason-card reveal delay-2">
+            <span class="reason-number">06</span>
+            <h3>Quem sou com você</h3>
+            <p>
+              Ao seu lado, sinto que posso ser eu mesmo, crescer e sonhar com um
+              futuro cada vez mais bonito.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LINHA DO TEMPO -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow">Nossa linha do tempo</span>
+          <h2>Pequenos capítulos de uma história enorme.</h2>
+          <p class="lead">
+            Troque as datas e os textos abaixo pelos momentos mais importantes de vocês.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <!-- EDITE AQUI: datas e momentos -->
+          <article class="timeline-item reveal">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="timeline-date">Nosso começo</span>
+              <h3>Quando tudo começou</h3>
+              <p>
+                Escreva aqui como vocês se conheceram, a primeira conversa ou o
+                momento em que perceberam que havia algo especial.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="timeline-date">Um momento inesquecível</span>
+              <h3>Uma memória só nossa</h3>
+              <p>
+                Conte aqui uma viagem, um encontro ou uma situação engraçada que
+                tenha se tornado uma lembrança importante.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="timeline-date">20 de junho de 2026</span>
+              <h3>O nosso noivado</h3>
+              <p>
+                O dia em que o nosso amor ganhou uma nova promessa e o futuro ficou
+                ainda mais bonito de imaginar.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="timeline-date">Hoje</span>
+              <h3>Nosso primeiro mês</h3>
+              <p>
+                O primeiro de muitos meses, anos e capítulos que ainda vamos celebrar juntos.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow">Nossos momentos</span>
+          <h2>Fotos que guardam um pouco de nós.</h2>
+          <p class="lead">
+            Clique em qualquer foto para ampliar. As legendas também podem ser editadas.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <!-- EDITE AQUI: fotos e legendas -->
+          <button class="gallery-item reveal" type="button">
+            <img src="fotos/foto4.jpg" alt="Foto especial do casal" data-placeholder="Foto 4" />
+            <span>Um dia que eu sempre vou guardar.</span>
+          </button>
+
+          <button class="gallery-item reveal delay-1" type="button">
+            <img src="fotos/foto5.jpg" alt="Emilly sorrindo" data-placeholder="Foto 5" />
+            <span>Seu sorriso, meu lugar favorito.</span>
+          </button>
+
+          <button class="gallery-item reveal delay-2" type="button">
+            <img src="fotos/foto6.jpg" alt="Gabriel e Emilly juntos" data-placeholder="Foto 6" />
+            <span>Onde eu quero estar.</span>
+          </button>
+
+          <button class="gallery-item reveal" type="button">
+            <img src="fotos/foto7.jpg" alt="Momento feliz do casal" data-placeholder="Foto 7" />
+            <span>Mais uma memória nossa.</span>
+          </button>
+
+          <button class="gallery-item reveal delay-1" type="button">
+            <img src="fotos/foto8.jpg" alt="Outro registro do casal" data-placeholder="Foto 8" />
+            <span>Uma vida inteira ainda parece pouco.</span>
+          </button>
+
+          <button class="gallery-item reveal delay-2" type="button">
+            <img src="fotos/foto9.jpg" alt="Detalhe romântico do casal" data-placeholder="Foto 9" />
+            <span>Você e eu, sempre.</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARTA -->
+    <section class="section" id="carta">
+      <div class="container">
+        <article class="letter-wrap reveal">
+          <div class="letter-content">
+            <span class="eyebrow">Uma carta para você</span>
+
+            <!-- EDITE AQUI: título da carta -->
+            <h2>Emilly, meu amor.</h2>
+
+            <!-- EDITE AQUI: conteúdo completo da carta -->
+            <p>
+              Hoje completamos o nosso primeiro mês de noivado, e eu queria encontrar
+              uma forma diferente de te lembrar do quanto você é importante para mim.
+              Talvez nenhuma página consiga guardar tudo o que sinto, mas ela pode
+              registrar pelo menos uma parte.
+            </p>
+
+            <p>
+              Eu sou muito feliz por ter você na minha vida. Feliz pelas nossas
+              risadas, pelas conversas, pelos sonhos que dividimos e até pelos dias
+              difíceis, porque eles também mostram a força daquilo que estamos
+              construindo juntos.
+            </p>
+
+            <p>
+              Quero continuar ao seu lado em cada nova fase: apoiando seus sonhos,
+              comemorando suas conquistas, segurando sua mão nos momentos complicados
+              e lembrando você, sempre que for preciso, de que não está sozinha.
+            </p>
+
+            <p>
+              Este foi apenas o primeiro mês do nosso noivado. Ainda temos uma vida
+              inteira para transformar em lembranças, e eu não poderia imaginar
+              alguém melhor para viver tudo isso comigo.
+            </p>
+
+            <p>
+              Eu te amo. Obrigado por ser você, por ser minha noiva e por fazer parte
+              dos meus planos mais bonitos.
+            </p>
+
+            <div class="signature">Com todo o meu amor, Gabriel.</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ENCERRAMENTO -->
+    <section class="finale">
+      <div class="container finale-box reveal">
+        <span class="eyebrow">Continua...</span>
+        <h2>Um mês de noivado.<br />Uma vida inteira pela frente.</h2>
+
+        <!-- EDITE AQUI: frase final -->
+        <p>Feliz primeiro mês de noivado, Emilly Nunes de Souza.</p>
+
+        <button class="heart-button" id="heartButton" type="button" aria-label="Espalhar corações">
+          ♥
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Feito por Gabriel, com amor, para Emilly.
+  </footer>
+
+  <!-- Modal para ampliar as fotos -->
+  <div class="modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Fechar foto">×</button>
+    <img id="modalImage" src="" alt="" />
+  </div>
+
+  <script>
+    /* =========================================================
+       DATA DO NOIVADO
+       Troque o valor abaixo no formato:
+       ANO-MÊS-DIAThora:minuto:segundo
+       Exemplo: 2026-06-20T20:00:00
+       ========================================================= */
+    const engagementDate = new Date("2026-06-20T00:00:00");
+
+    const daysElement = document.getElementById("days");
+    const hoursElement = document.getElementById("hours");
+    const minutesElement = document.getElementById("minutes");
+    const secondsElement = document.getElementById("seconds");
+
+    function updateCounter() {
+      const now = new Date();
+      const difference = Math.max(0, now - engagementDate);
+
+      const totalSeconds = Math.floor(difference / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      daysElement.textContent = String(days);
+      hoursElement.textContent = String(hours).padStart(2, "0");
+      minutesElement.textContent = String(minutes).padStart(2, "0");
+      secondsElement.textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+
+    /* Animações ao aparecer na tela */
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.13 }
+    );
+
+    document.querySelectorAll(".reveal").forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+    /* Música */
+    const music = document.getElementById("music");
+    const musicButton = document.getElementById("musicButton");
+    const musicText = document.getElementById("musicText");
+    const musicIcon = document.getElementById("musicIcon");
+    let isMusicPlaying = false;
+
+    musicButton.addEventListener("click", async () => {
+      try {
+        if (!isMusicPlaying) {
+          await music.play();
+          isMusicPlaying = true;
+          musicText.textContent = "Pausar música";
+          musicIcon.textContent = "❚❚";
+        } else {
+          music.pause();
+          isMusicPlaying = false;
+          musicText.textContent = "Nossa música";
+          musicIcon.textContent = "♪";
+        }
+      } catch (error) {
+        musicText.textContent = "Adicione musica.mp3";
+        setTimeout(() => {
+          musicText.textContent = "Nossa música";
+        }, 2600);
+      }
+    });
+
+    music.addEventListener("ended", () => {
+      isMusicPlaying = false;
+      musicText.textContent = "Nossa música";
+      musicIcon.textContent = "♪";
+    });
+
+    /* Corações */
+    function createHeartBurst(originX, originY, quantity = 18) {
+      for (let i = 0; i < quantity; i++) {
+        const heart = document.createElement("span");
+        heart.className = "floating-heart";
+        heart.textContent = Math.random() > 0.35 ? "♥" : "♡";
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 70 + Math.random() * 170;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance - 80;
+        const rotation = `${-90 + Math.random() * 180}deg`;
+        const size = 14 + Math.random() * 22;
+
+        heart.style.left = `${originX}px`;
+        heart.style.top = `${originY}px`;
+        heart.style.fontSize = `${size}px`;
+        heart.style.setProperty("--x", `${x}px`);
+        heart.style.setProperty("--y", `${y}px`);
+        heart.style.setProperty("--r", rotation);
+        heart.style.animationDelay = `${Math.random() * 0.18}s`;
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2200);
+      }
+    }
+
+    document.getElementById("surpriseButton").addEventListener("click", (event) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      createHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 26);
+      document.getElementById("carta").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("heartButton").addEventListener("click", (event) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      createHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 34);
+    });
+
+    /* Galeria ampliada */
+    const modal = document.getElementById("galleryModal");
+    const modalImage = document.getElementById("modalImage");
+    const modalClose = document.getElementById("modalClose");
+
+    document.querySelectorAll(".gallery-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        const image = item.querySelector("img");
+
+        if (image.dataset.failed === "true") return;
+
+        modalImage.src = image.src;
+        modalImage.alt = image.alt;
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+        modalClose.focus();
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    modalClose.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("open")) {
+        closeModal();
+      }
+    });
+
+    /* Fallback para fotos ainda não adicionadas */
+    document.querySelectorAll("img[data-placeholder]").forEach((image) => {
+      image.addEventListener("error", () => {
+        if (image.dataset.failed === "true") return;
+
+        image.dataset.failed = "true";
+        image.style.display = "none";
+
+        const placeholder = document.createElement("div");
+        placeholder.className = "image-placeholder";
+        placeholder.innerHTML = `
+          <div>
+            ${image.dataset.placeholder}
+            <small>Adicione a imagem em ${image.getAttribute("src")}</small>
+          </div>
+        `;
+
+        image.parentElement.appendChild(placeholder);
+      });
+    });
+  </script>
+</body>
+</html>
+'''
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"Arquivo criado: {path} ({path.stat().st_size / 1024:.1f} KB)")
