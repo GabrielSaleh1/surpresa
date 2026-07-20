@@ -1,4 +1,4 @@
-from pathlib import Path
+
 
 html = r'''<!DOCTYPE html>
 <html lang="pt-BR">
@@ -1324,9 +1324,9 @@ html = r'''<!DOCTYPE html>
 
           <!-- EDITE AQUI: os parágrafos abaixo -->
           <p>
-            Quando penso em nós, não penso apenas nos momentos grandes. Penso nas
-            conversas, nas brincadeiras, nos pequenos cuidados, nos dias comuns e
-            em como tudo parece ganhar mais sentido quando você está por perto.
+            Quando penso na gente, não penso só nos momentos grandes. Penso nas
+            conversas, nas nossas brincadeiras, nos pequenos cuidados, nos dias comuns e
+            em como tudo parece ganhar mais sentido quando você está envolvida.
           </p>
 
           <p>
@@ -1352,8 +1352,7 @@ html = r'''<!DOCTYPE html>
           <span class="eyebrow">Só alguns motivos</span>
           <h2>Coisas que fazem eu te escolher todos os dias.</h2>
           <p class="lead">
-            Você pode trocar estes textos por lembranças, características da Emilly
-            ou momentos que sejam especiais para vocês.
+            Cada um desses são motivos que fazem me apaixonar cada vez mais todo dia
           </p>
         </div>
 
@@ -1372,8 +1371,8 @@ html = r'''<!DOCTYPE html>
             <span class="reason-number">02</span>
             <h3>Seu sorriso</h3>
             <p>
-              É um daqueles detalhes que mudam completamente o meu dia e sempre me
-              lembram de como sou feliz por ter você.
+              Mesmo você tendo tirado o aparalho a pouco tempo
+              eu sempre amei esse sorriso que me faz derreter toda vez que vejo ele.
             </p>
           </article>
 
@@ -1381,8 +1380,8 @@ html = r'''<!DOCTYPE html>
             <span class="reason-number">03</span>
             <h3>Nossa parceria</h3>
             <p>
-              Gosto de saber que não somos apenas um casal: somos uma dupla, um time
-              e um porto seguro um para o outro.
+              Gosto de saber que posso contar com você, e quero que 
+              você saiba que pode sempre contar comigo
             </p>
           </article>
 
@@ -1390,8 +1389,9 @@ html = r'''<!DOCTYPE html>
             <span class="reason-number">04</span>
             <h3>Nossas conversas</h3>
             <p>
-              Das conversas mais sérias às maiores bobagens, estar com você nunca
-              deixa de ser uma das melhores partes do meu dia.
+              Das conversas mais sérias às maiores bobagens, sempre que
+              estou com você é a melhor parte do meu dia, e quando não estou
+              fico esperando ansiosamente para poder falar com você.
             </p>
           </article>
 
@@ -1408,7 +1408,7 @@ html = r'''<!DOCTYPE html>
             <span class="reason-number">06</span>
             <h3>Quem sou com você</h3>
             <p>
-              Ao seu lado, sinto que posso ser eu mesmo, crescer e sonhar com um
+              Ao seu lado, sinto que posso ser eu mesmo, buscar ser melhor e sonhar com um
               futuro cada vez mais bonito.
             </p>
           </article>
@@ -1423,7 +1423,7 @@ html = r'''<!DOCTYPE html>
           <span class="eyebrow">Nossa linha do tempo</span>
           <h2>Pequenos capítulos de uma história enorme.</h2>
           <p class="lead">
-            Troque as datas e os textos abaixo pelos momentos mais importantes de vocês.
+            Sei que faz pouco tempo, mas já vivemos tanta coisa.
           </p>
         </div>
 
@@ -1435,8 +1435,9 @@ html = r'''<!DOCTYPE html>
               <span class="timeline-date">Nosso começo</span>
               <h3>Quando tudo começou</h3>
               <p>
-                Escreva aqui como vocês se conheceram, a primeira conversa ou o
-                momento em que perceberam que havia algo especial.
+                Quem diria que de uma conversa sobre porque
+                o doce brigadeiro se chama assim viria o amor
+                da minha vida?.
               </p>
             </div>
           </article>
@@ -1447,8 +1448,11 @@ html = r'''<!DOCTYPE html>
               <span class="timeline-date">Um momento inesquecível</span>
               <h3>Uma memória só nossa</h3>
               <p>
-                Conte aqui uma viagem, um encontro ou uma situação engraçada que
-                tenha se tornado uma lembrança importante.
+                Lembro da primeria vez que te vi, quando fui te buscar
+                na sua casa para a gente passar o dia na minha, eu fiquei muito
+                ansioso, e quando te vi, foi como se o tempo parasse, meu coração
+                disparou e ali eu percebi que estava completamente apaixonado, mesmo
+                sem nem ter tocado em você.
               </p>
             </div>
           </article>
@@ -1459,8 +1463,10 @@ html = r'''<!DOCTYPE html>
               <span class="timeline-date">20 de junho de 2026</span>
               <h3>O nosso noivado</h3>
               <p>
-                O dia em que o nosso amor ganhou uma nova promessa e o futuro ficou
-                ainda mais bonito de imaginar.
+                Esse foi o dia em que você veio pra cá, a gente foi ver
+                pânico e depois te levei na praia e te pedi em noivado,
+                além do dia ter sido incrível, foi o melhor final de semana
+                da minha vida.
               </p>
             </div>
           </article>
@@ -1484,9 +1490,8 @@ html = r'''<!DOCTYPE html>
       <div class="container">
         <div class="section-title reveal">
           <span class="eyebrow">Nossos momentos</span>
-          <h2>Fotos que guardam um pouco de nós.</h2>
+          <h2>Fotos suas que me fazem ficar perdidamente apaixonado.</h2>
           <p class="lead">
-            Clique em qualquer foto para ampliar. As legendas também podem ser editadas.
           </p>
         </div>
 
@@ -1782,6 +1787,3 @@ html = r'''<!DOCTYPE html>
 </html>
 '''
 
-path = Path("/mnt/data/index.html")
-path.write_text(html, encoding="utf-8")
-print(f"Arquivo criado: {path} ({path.stat().st_size / 1024:.1f} KB)")
