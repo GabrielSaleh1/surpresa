@@ -354,6 +354,9 @@
       height: 78%;
       transform: rotate(2deg);
     }
+    .photo-main img {
+  object-position: center 28%;
+}
 
     .photo-small {
       left: 0;
@@ -1168,9 +1171,7 @@
        Coloque um arquivo chamado "musica.mp3" na mesma pasta do index.html.
        O navegador só tocará depois que a pessoa clicar no botão.
        ========================================================= -->
-  <audio id="music" loop preload="metadata">
-    <source src="musica.mp3" type="audio/mpeg" />
-  </audio>
+  <audio id="music" src="./musica.mp3" loop preload="auto"></audio>
 
   <nav class="nav" aria-label="Navegação principal">
     <div class="nav-inner">
